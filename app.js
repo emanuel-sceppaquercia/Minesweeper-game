@@ -66,8 +66,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 square.innerHTML = total;
                 return;
             }
-            square.classList.add('checked');    
+            square.classList.add('checked'); 
+            checkSquare(square,currentId);   
         }
-        return;
+
+    }
+
+    // Check all sorrounding squares after a click event.
+    function checkSquare(square,id){
+        const leftEdge = (id % width == 0);
+        const rightEdge = (id % width == 9);
+
+        setTimeout(() => {
+            if(id > 0 && !leftEdge){
+                click(squares[id-1]);
+            }
+            if(id > 0 && !rightEdge){
+                click(squares[parseInt(id)+1]);
+            }
+            if(id > 10){
+                click(squares[parseInt(id)-width]);
+            }
+            if(id < 90){
+                click(squares[parseInt(id)+width]);
+            }
+            if(id > 10 && !leftEdge){
+                click(squares[parseInt(id)-width-1]);
+            }
+            if(id > 10 && !rightEdge){
+                click(squares[parseInt(id)-width+1]);
+            }
+            if(id < 90 && !leftEdge){
+                click(squares[parseInt(id)+width-1]);
+            }
+            if(id < 90 && !rightEdge){
+                click(squares[parseInt(id)+width+1]);
+            }
+        }, 4)
+
     }
 })
