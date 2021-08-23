@@ -37,8 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Set the event listener in order to reset the game
         const btnReset = document.getElementById('btnReset');
         btnReset.addEventListener('click', function(e){
-            reset();
+            location.reload();
         })
+
+        addTimer();
 
         // Add total numbers of mines adjacent to the tile
         for(let i = 0; i < squares.length; i++){
@@ -171,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for(let i = 0; i < squares.length; i++){
             if(squares[i].classList.contains('flag') && squares[i].classList.contains('mine')) match++
             if(match == mines){
-                console.log('You win!');
+                document.getElementById('img').src = ('./img/win.png')
                 gameOver = true;
             }
         }
@@ -188,13 +190,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 square.classList.add('gameOver');
             }
         })
-        btnReset.classList.add('sad');
+        document.getElementById('img').src = ('./img/sad.png')
     }
 
+    // Add timer
+    function addTimer(){
+        let min = 02;
+        let sec = 00;
+        
+        // Set the interval function into a variable, in order to stop the timer if timeout or lose
+        let interval = setInterval(() => {        
+            console.log(min)
+            console.log(sec)
+            let currentTime = ('0'+min +':'+sec);
+            if(sec < 10){
+                currentTime = ('0'+min +':0'+sec);
+            }
+            
+            document.getElementsByClassName('timer')[0].innerHTML = currentTime;
+            if((min == 2 || min == 1) && sec == 0){
+                min--;
+                sec = 60;
+            }
+            if(min == 0 && sec == 0){
+                gameOver();
+            }
+            if(lose){
+                clearInterval(interval);
+            }
+            sec--
+        }, 1000)
+    }
+
+/* Canceled due to perfomance
     // Delete the previous board and create a new one
     function reset(){
         cleanBoard();
         createBoard();
+        location.reload();
     }
 
     // Delete all board's childs and reset the win conditions
@@ -205,6 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
         squares = [];
         flags = 0;
         lose = false;
+        document.getElementById('img').src = ('./img/smile.png')
     }
+*/
       
 })
