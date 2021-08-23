@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const board = document.querySelector('.board');
     let width = 10;
-    let mines = 20;
+    let mines = 10;
     let flags = 0;
     let lose = false;
+    let win = false;
     let squares = [];
 
     // create Board 
@@ -174,7 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if(squares[i].classList.contains('flag') && squares[i].classList.contains('mine')) match++
             if(match == mines){
                 document.getElementById('img').src = ('./img/win.png')
-                gameOver = true;
+                lose = true;
+                win = true;
             }
         }
     }
@@ -200,8 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Set the interval function into a variable, in order to stop the timer if timeout or lose
         let interval = setInterval(() => {        
-            console.log(min)
-            console.log(sec)
             let currentTime = ('0'+min +':'+sec);
             if(sec < 10){
                 currentTime = ('0'+min +':0'+sec);
@@ -212,13 +212,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 min--;
                 sec = 60;
             }
+            // Stop timer if tomeout
             if(min == 0 && sec == 0){
                 gameOver();
             }
-            if(lose){
+            // Stop timer if win or lose
+            if(lose || win){
                 clearInterval(interval);
             }
-            sec--
+            sec--;
         }, 1000)
     }
 
