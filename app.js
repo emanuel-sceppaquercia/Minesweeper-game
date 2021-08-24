@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const board = document.querySelector('.board');
     let width = 10;
-    let mines = 10;
+    let mines = 20;
     let flags = 0;
     let lose = false;
     let win = false;
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             location.reload();
         })
 
+        addFlags();
         addTimer();
 
         // Add total numbers of mines adjacent to the tile
@@ -159,10 +160,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if(!square.classList.contains('flag')){
                 square.classList.add('flag');
                 flags++;
+                addFlags();
                 winGame();
             } else {
                 square.classList.remove('flag');
                 flags--
+                addFlags();
             }
         }
     }
@@ -198,6 +201,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         document.getElementById('img').src = ('./img/sad.png')
+    }
+
+    // Add flag count
+    function addFlags(){
+        document.getElementsByClassName('flags')[0].innerHTML = mines-flags;
     }
 
     // Add timer
