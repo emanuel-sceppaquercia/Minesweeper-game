@@ -109,6 +109,12 @@ body{
     background-position: center;
 }
 
+.notMine{
+    background-image: url('./img/cross.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 
 @media only screen 
 and (max-device-width: 800px){
@@ -225,4 +231,10 @@ and (max-device-width: 800px){
         background-repeat: no-repeat;
         background-position: center;
     } 
+
+    .notMine{
+        background-image: url('./img/cross.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 }

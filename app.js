@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(id >= 0 && !rightEdge){
                 click(squares[parseInt(id)+1]);
             }
-            if(id > 10){
+            if(id > 9){
                 click(squares[parseInt(id)-width]);
             }
             if(id < 90){
@@ -190,6 +190,11 @@ document.addEventListener('DOMContentLoaded', () => {
         squares.forEach(square => {
             if(square.classList.contains('mine')){
                 square.classList.add('gameOver');
+            }
+            if(square.classList.contains('flag') && square.classList.contains('tile')){
+                //square.classList.remove('flag');
+                //square.classList.remove('tile');
+                square.classList.add('notMine');
             }
         })
         document.getElementById('img').src = ('./img/sad.png')
